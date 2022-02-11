@@ -1,5 +1,6 @@
 package com.company;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,12 +14,7 @@ public class Player extends Employees{
     }
 
     public void setProject(Projects projekt){
-        if (this.projectList.isEmpty()) {
-            projectList.add(projekt);
-        }
-        else{
-            System.out.println("You have active project.\n");
-        }
+        projectList.add(projekt);
     }
 
     public List<Projects> getProject(){
