@@ -1,6 +1,6 @@
 package com.company;
 
-public class Employees {
+public abstract class Employees {
     public String firstName;
     public String lastName;
     public int java;

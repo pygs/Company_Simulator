@@ -1,6 +1,6 @@
 package com.company;
 
-public class Projects {
+public class Projects{
     public String name;
     public String level;
 
