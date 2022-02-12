@@ -8,6 +8,7 @@ public class Main {
         Double money = 3000.0;
         List<Projects> projectList = new ArrayList<>();
         List<Students> stuList = new ArrayList<>();
+        List<Employees> empList = new ArrayList<>();
         for(int i = 0; i < 3; i++) {
             String[] projectName = {"dupa", "CD Projekt Red", "Techland", "EA", "Google"};
             String[] projectLvl = {"Easy", "Medium", "Complicated"};
@@ -26,11 +27,14 @@ public class Main {
         Player player = new Player(playerName, null, 1, 1, 1, 0, 1, 1);
 
         LocalDate dt = LocalDate.of(2019, 12, 31);
-        int count = 0;
+        int count = 0, empCount = 0;
         while(money > 0.0) {
-            String progress = "I", progressBar = "";
+            String progress = "I", progressBar = "", empBar = "";
             for (int i = 0; i < count; i++){
                 progressBar += progress;
+            }
+            for (int i = 0; i < empCount; i++){
+                empBar += progress;
             }
             System.out.println(dt = dt.plusDays(1));
             System.out.println(playerName + " Company");
@@ -46,15 +50,34 @@ public class Main {
             Scanner input = new Scanner(System.in);
             int playerInput = input.nextInt();
             if (playerInput == 1) {
+                int projectLoop = 1;
                 if (player.projectList.isEmpty()) {
                     for (int i = 0; i < projectList.size(); i++) {
                         System.out.println((i + 1) + ". " + projectList.get(i));
+                        projectLoop++;
                     }
+                    System.out.println(projectLoop + ". Exit");
                     Scanner projectInput = new Scanner(System.in);
                     int projectSet = projectInput.nextInt();
-                    player.setProject(projectList.get(projectSet - 1));
-                    projectList.remove(projectSet - 1);
-                } else {
+                    if (projectSet == projectLoop){
+                        dt = dt.minusDays(1);
+                        projectList.add(new Projects(null, null));
+                    }
+                    Projects proLvl = projectList.get(projectSet-1);
+                    if (projectSet == projectLoop){
+                        projectList.remove(projectSet - 1);
+                        // Needed to do exit option and it was my only idea without using break
+                    }
+                    else if(proLvl.projectLvl == "Complicated"){
+                        System.out.println("You can't do it alone.");
+                        dt = dt.minusDays(1);
+                    }
+                    else if (proLvl.projectLvl != "Complicated" || (proLvl.projectLvl == "Complicated" && !player.studen.isEmpty() && !player.employees.isEmpty())) {
+                      player.setProject(projectList.get(projectSet - 1));
+                      projectList.remove(projectSet - 1);
+                    }
+                }
+                else {
                     System.out.println("You have active project.\n");
                     dt = dt.minusDays(1);
                 }
@@ -75,23 +98,28 @@ public class Main {
                 System.out.println("1. Employees");
                 if(player.studen.isEmpty()) {
                     System.out.println("2. Students");
-                    Scanner empChoice = new Scanner(System.in);
-                    int empInput = empChoice.nextInt();
-                    if (empInput == 1) {
-                        //
-                    } else if (empInput == 2) {
-                        if (player.studen.isEmpty()) {
-                            for (int i = 0; i < stuList.size(); i++) {
-                                System.out.println((i + 1) + ". " + stuList.get(i));
-                            }
-                            Scanner stuInput = new Scanner(System.in);
-                            int stuSet = stuInput.nextInt();
-                            player.addStudent(stuList.get(stuSet - 1));
-                            stuList.remove(stuSet - 1);
-                        } else {
-                            System.out.println("Your one friend is already helping you.");
+                }
+                System.out.println("3. Look for new employee. Cost: 100");
+                Scanner empChoice = new Scanner(System.in);
+                int empInput = empChoice.nextInt();
+                if (empInput == 1) {
+                    //
+                }
+                else if (empInput == 2) {
+                    if (player.studen.isEmpty()) {
+                        for (int i = 0; i < stuList.size(); i++) {
+                            System.out.println((i + 1) + ". " + stuList.get(i));
                         }
+                        Scanner stuInput = new Scanner(System.in);
+                        int stuSet = stuInput.nextInt();
+                        player.addStudent(stuList.get(stuSet - 1));
+                        stuList.remove(stuSet - 1);
+                    } else {
+                        System.out.println("Your one friend is already helping you.");
                     }
+                }
+                else if (empInput == 3){
+
                 }
             }
         }
