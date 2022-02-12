@@ -38,6 +38,7 @@ public class Main {
             }
             System.out.println(dt = dt.plusDays(1));
             System.out.println(playerName + " Company");
+            System.out.println("Money: " + money + " Pesos");
             System.out.println("Active project: " + player.getProject());
             System.out.println("1. Sign the contract for new project." );
             System.out.println("2. Spend the day searching for new projects. [" + progressBar + "]");
@@ -68,13 +69,13 @@ public class Main {
                         projectList.remove(projectSet - 1);
                         // Needed to do exit option and it was my only idea without using break
                     }
+                    else if (proLvl.projectLvl != "Complicated" || (proLvl.projectLvl == "Complicated" && !player.studen.isEmpty()) || (proLvl.projectLvl == "Complicated" && !player.employees.isEmpty())) {
+                        player.setProject(projectList.get(projectSet - 1));
+                        projectList.remove(projectSet - 1);
+                    }
                     else if(proLvl.projectLvl == "Complicated"){
                         System.out.println("You can't do it alone.");
                         dt = dt.minusDays(1);
-                    }
-                    else if (proLvl.projectLvl != "Complicated" || (proLvl.projectLvl == "Complicated" && !player.studen.isEmpty() && !player.employees.isEmpty())) {
-                      player.setProject(projectList.get(projectSet - 1));
-                      projectList.remove(projectSet - 1);
                     }
                 }
                 else {
@@ -99,11 +100,28 @@ public class Main {
                 if(player.studen.isEmpty()) {
                     System.out.println("2. Students");
                 }
-                System.out.println("3. Look for new employee. Cost: 100");
+                System.out.println("3. Look for new employee. Cost: 100" + " [" + empBar + "]");
+                System.out.println("4. Exit");
                 Scanner empChoice = new Scanner(System.in);
                 int empInput = empChoice.nextInt();
                 if (empInput == 1) {
-                    //
+                    for (int i = 0; i < 3; i++){
+                        int empRand = ThreadLocalRandom.current().nextInt(0, 2+1);
+                        if (empRand == 0){
+                            empList.add(new Employee("Adam", "Szuta", "Programmer"));
+                        }
+                        else if (empRand == 1){
+                            empList.add(new Employee("Adam", "Szuta", "Seller"));
+                        }
+                        else if (empRand == 2){
+                            empList.add(new Employee("Adam", "Szuta", "Tester"));
+                        }
+                        System.out.println(empList.get(i));
+                    }
+                    Scanner emploInput = new Scanner(System.in);
+                    int empSet = emploInput.nextInt();
+                    player.addEmployee(empList.get(empSet - 1));
+                    empList.remove(empSet - 1);
                 }
                 else if (empInput == 2) {
                     if (player.studen.isEmpty()) {
@@ -113,13 +131,24 @@ public class Main {
                         Scanner stuInput = new Scanner(System.in);
                         int stuSet = stuInput.nextInt();
                         player.addStudent(stuList.get(stuSet - 1));
-                        stuList.remove(stuSet - 1);
                     } else {
                         System.out.println("Your one friend is already helping you.");
+                        dt = dt.minusDays(1);
                     }
                 }
                 else if (empInput == 3){
-
+                    System.out.println("You posted announcements for job hiring.");
+                    empCount++;
+                    money -= 100;
+                    if(empCount == 5){
+                        String[] empName = {"Adam"};
+                        String[] empLastName = {"Szuta"};
+                        String[] empSpeciality = {"Programmer", "Seller", "Tester"};
+                        empList.add(new Employee(empName[ThreadLocalRandom.current().nextInt(0, 0+1)], empLastName[ThreadLocalRandom.current().nextInt(0, 0+1)], empSpeciality[ThreadLocalRandom.current().nextInt(0, 0+1)]));
+                    }
+                }
+                else if (empInput == 4){
+                    dt = dt.minusDays(1);
                 }
             }
         }

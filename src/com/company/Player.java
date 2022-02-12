@@ -26,4 +26,8 @@ public class Player extends Employees{
     public void addStudent(Students student){
         studen.add(student);
     }
+
+    public void addEmployee(Employees employee){
+        employees.add(employee);
+    }
 }

@@ -11,7 +11,6 @@ public abstract class Employees {
     public int mobile = ThreadLocalRandom.current().nextInt(0, 1+1);
     public int wordPress = ThreadLocalRandom.current().nextInt(0, 1+1);
     public int prestaShop = ThreadLocalRandom.current().nextInt(0, 1+1);
-    public double salary;
 
     public Employees(String firstName, String lastName){
         this.firstName = firstName;
