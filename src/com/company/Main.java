@@ -7,22 +7,18 @@ public class Main {
     public static void main(String[] args) {
         Double money = 3000.0;
         List<Projects> projectList = new ArrayList<>();
-        int[] bestStuLvl = new int[6];
-        int[] stuLvl = new int[6];
-        int[] chillStuLvl = new int[6];
-        for (int i = 0; i < bestStuLvl.length; i++) {
-            bestStuLvl[i] = ThreadLocalRandom.current().nextInt(0, 1 + 1);
-            stuLvl[i] = ThreadLocalRandom.current().nextInt(0, 1 + 1);
-            chillStuLvl[i] = ThreadLocalRandom.current().nextInt(0, 1 + 1);
-        }
+        List<Students> stuList = new ArrayList<>();
         for(int i = 0; i < 3; i++) {
             String[] projectName = {"dupa", "CD Projekt Red", "Techland", "EA", "Google"};
             String[] projectLvl = {"Easy", "Medium", "Complicated"};
             projectList.add(new Projects(projectName[ThreadLocalRandom.current().nextInt(0, 4 + 1)], projectLvl[ThreadLocalRandom.current().nextInt(0, 2 + 1)]));
         }
-        Students bestStu = new Students("Janusz", "Kopytko", bestStuLvl[0], bestStuLvl[1], bestStuLvl[2], bestStuLvl[3], bestStuLvl[4], bestStuLvl[5]);
-        Students stu = new Students("Janusz", "Kopytko", stuLvl[0], stuLvl[1], stuLvl[2], stuLvl[3], stuLvl[4], stuLvl[5]);
-        Students chillStu = new Students("Janusz", "Kopytko", chillStuLvl[0], chillStuLvl[1], chillStuLvl[2], chillStuLvl[3], chillStuLvl[4], chillStuLvl[5]);
+        Best bestStu = new Best("Janusz", "Kopytko");
+        Normal stu = new Normal("Janusz", "Kopytko");
+        Lazy idiStu = new Lazy("Janusz", "Kopytko");
+        stuList.add(bestStu);
+        stuList.add(stu);
+        stuList.add(idiStu);
 
         Scanner name = new Scanner(System.in);
         System.out.println("Enter your name: ");
@@ -32,15 +28,15 @@ public class Main {
         LocalDate dt = LocalDate.of(2019, 12, 31);
         int count = 0;
         while(money > 0.0) {
-            String searchDay = "I", searchDays = "";
+            String progress = "I", progressBar = "";
             for (int i = 0; i < count; i++){
-                searchDays += searchDay;
+                progressBar += progress;
             }
             System.out.println(dt = dt.plusDays(1));
             System.out.println(playerName + " Company");
             System.out.println("Active project: " + player.getProject());
             System.out.println("1. Sign the contract for new project." );
-            System.out.println("2. Spend the day searching for new projects. [" + searchDays + "]");
+            System.out.println("2. Spend the day searching for new projects. [" + progressBar + "]");
             System.out.println("3. Spend the day programming.");
             System.out.println("4. Spend the day testing code.");
             System.out.println("5. Return project to client.");
@@ -72,6 +68,30 @@ public class Main {
                     String[] projectLvl = {"Easy", "Medium", "Complicated"};
                     projectList.add(new Projects(projectName[ThreadLocalRandom.current().nextInt(0, 4 + 1)], projectLvl[ThreadLocalRandom.current().nextInt(0, 2 + 1)]));
                     count = 0;
+                }
+            }
+
+            else if (playerInput == 6){
+                System.out.println("1. Employees");
+                if(player.studen.isEmpty()) {
+                    System.out.println("2. Students");
+                    Scanner empChoice = new Scanner(System.in);
+                    int empInput = empChoice.nextInt();
+                    if (empInput == 1) {
+                        //
+                    } else if (empInput == 2) {
+                        if (player.studen.isEmpty()) {
+                            for (int i = 0; i < stuList.size(); i++) {
+                                System.out.println((i + 1) + ". " + stuList.get(i));
+                            }
+                            Scanner stuInput = new Scanner(System.in);
+                            int stuSet = stuInput.nextInt();
+                            player.addStudent(stuList.get(stuSet - 1));
+                            stuList.remove(stuSet - 1);
+                        } else {
+                            System.out.println("Your one friend is already helping you.");
+                        }
+                    }
                 }
             }
         }

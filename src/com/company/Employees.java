@@ -1,23 +1,20 @@
 package com.company;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 public abstract class Employees {
     public String firstName;
     public String lastName;
-    public int java;
-    public int frontEnd;
-    public int dataBase;
-    public int mobile;
-    public int wordPress;
-    public int prestaShop;
+    public int java = ThreadLocalRandom.current().nextInt(0, 1+1);
+    public int frontEnd = ThreadLocalRandom.current().nextInt(0, 1+1);
+    public int dataBase = ThreadLocalRandom.current().nextInt(0, 1+1);
+    public int mobile = ThreadLocalRandom.current().nextInt(0, 1+1);
+    public int wordPress = ThreadLocalRandom.current().nextInt(0, 1+1);
+    public int prestaShop = ThreadLocalRandom.current().nextInt(0, 1+1);
+    public double salary;
 
-    public Employees(String firstName, String lastName, int java, int frontEnd, int dataBase, int mobile, int wordPress, int prestaShop){
+    public Employees(String firstName, String lastName){
         this.firstName = firstName;
         this.lastName = lastName;
-        this.java = java;
-        this.frontEnd = frontEnd;
-        this.dataBase = dataBase;
-        this.mobile = mobile;
-        this.wordPress = wordPress;
-        this.prestaShop = prestaShop;
     }
 }
