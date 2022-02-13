@@ -14,6 +14,19 @@ public class Main {
             String[] projectLvl = {"Easy", "Medium", "Complicated"};
             projectList.add(new Projects(projectName[ThreadLocalRandom.current().nextInt(0, 4 + 1)], projectLvl[ThreadLocalRandom.current().nextInt(0, 2 + 1)]));
         }
+        for (int i = 0; i < 3; i++){
+            int empRand = ThreadLocalRandom.current().nextInt(0, 2+1);
+            if (empRand == 0){
+                empList.add(new Employee("Adam", "Szuta", "Programmer"));
+            }
+            else if (empRand == 1){
+                empList.add(new Employee("Adam", "Szuta", "Seller"));
+            }
+            else if (empRand == 2){
+                empList.add(new Employee("Adam", "Szuta", "Tester"));
+            }
+            System.out.println(empList.get(i));
+        }
         Best bestStu = new Best("Janusz", "Kopytko");
         Normal stu = new Normal("Janusz", "Kopytko");
         Lazy idiStu = new Lazy("Janusz", "Kopytko");
@@ -105,19 +118,6 @@ public class Main {
                 Scanner empChoice = new Scanner(System.in);
                 int empInput = empChoice.nextInt();
                 if (empInput == 1) {
-                    for (int i = 0; i < 3; i++){
-                        int empRand = ThreadLocalRandom.current().nextInt(0, 2+1);
-                        if (empRand == 0){
-                            empList.add(new Employee("Adam", "Szuta", "Programmer"));
-                        }
-                        else if (empRand == 1){
-                            empList.add(new Employee("Adam", "Szuta", "Seller"));
-                        }
-                        else if (empRand == 2){
-                            empList.add(new Employee("Adam", "Szuta", "Tester"));
-                        }
-                        System.out.println(empList.get(i));
-                    }
                     Scanner emploInput = new Scanner(System.in);
                     int empSet = emploInput.nextInt();
                     player.addEmployee(empList.get(empSet - 1));
