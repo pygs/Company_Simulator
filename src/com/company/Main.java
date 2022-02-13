@@ -10,7 +10,7 @@ public class Main {
         List<Students> stuList = new ArrayList<>();
         List<Employees> empList = new ArrayList<>();
         for(int i = 0; i < 3; i++) {
-            String[] projectName = {"dupa", "CD Projekt Red", "Techland", "EA", "Google"};
+            String[] projectName = {"CD Projekt Red", "Techland", "EA", "Google"};
             String[] projectLvl = {"Easy", "Medium", "Complicated"};
             projectList.add(new Projects(projectName[ThreadLocalRandom.current().nextInt(0, 4 + 1)], projectLvl[ThreadLocalRandom.current().nextInt(0, 2 + 1)]));
         }
